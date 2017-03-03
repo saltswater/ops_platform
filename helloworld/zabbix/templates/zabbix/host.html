@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>运维平台</title>
+
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1>
+					<small>运维平台</small>
+				</h1>
+			</div>
+			<ul class="nav nav-tabs">
+				<li>
+					<a href="http://127.0.0.1:8000">主页 </a>
+				</li>
+				<li class="active">
+					<a href="http://127.0.0.1:8000/zabbix">zabbix监控系统</a>
+				</li>
+	<!--			<li class="disabled">   -->
+                <li>
+					<a href="#">ELK日志分析</a>
+				</li>
+                <li>
+					<a href="#">应用升级</a>
+				</li>
+                <li>
+					<a href="#">日常巡检</a>
+				</li>
+				<li class="dropdown pull-right">
+					 <a href="#" data-toggle="dropdown" class="dropdown-toggle">下拉菜单<strong class="caret"></strong></a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="#">Action</a>
+						</li>
+						<li>
+							<a href="#">Another action</a>
+						</li>
+						<li>
+							<a href="#">Something else here</a>
+						</li>
+						<li class="divider">
+						</li>
+						<li>
+							<a href="#">Separated link</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="list-group">
+				 <a href="#" class="list-group-item active">zabbix功能列表</a>
+				<div class="list-group-item">
+                  <a href="http://127.0.0.1:8000/zabbix/hosts_info.html">主机组列表</a>
+				</div>
+                <div class="list-group-item">
+                    <a href="http://127.0.0.1:8000/zabbix/hosts_info.html">主机列表</a>
+                </div>
+                <div class="list-group-item">
+                  <a href="http://127.0.0.1:8000/zabbix/issue.html">报警信息</a>
+				</div>
+                <div class="list-group-item">
+                  <a href="http://127.0.0.1:8000/zabbix/history.html">历史数据</a>
+				</div>
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">
+						List group item heading
+					</h4>
+					<p class="list-group-item-text">
+						...
+					</p>
+				</div>
+				<div class="list-group-item">
+					<span class="badge">14</span>Help
+				</div> <a class="list-group-item active"><span class="badge">14</span>Help</a>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<h>
+                触发器信息
+            </h>
+            <p id="demo"> </p>
+            {{ request.user }}
+            {% if request.user.is_authenticated %}
+               {{ request.user.username }}，您好！
+            {% else %}
+                请登陆，这里放登陆链接
+            {{ request.path }}
+{% endif %}
+            {% csrf_token %}
+            {% for i in h_info %}
+                <table border="1">
+                    <tr>
+                    <th>主机</th>
+                    <th>主机ID</th>
+                    <th>接口</th>
+                    </tr>
+                    <tr>
+                    <td>{{ i.host|cut:"u" }}</td>
+                    <td>{{ i.hostid|cut:"u" }}</td>
+                    <td>{{ i.interfaces|cut:"u" }}</td>
+                    </tr>
+                </table>
+            {% endfor %}
+
+		</div>
+	</div>
+</div>
+
+    <script src="/static/bootstrap/js/jquery.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap/js/scripts.js"></script>
+  </body>
+</html>
